@@ -39,10 +39,10 @@ $alat_musik = query("SELECT * FROM alat_musik WHERE id = '$id'")[0];
       <?php $alat_musik['id']; ?>
 
 
-      <p><?= $alat_musik['nama_alat']; ?></p>
-      <p><?= $alat_musik['merk']; ?></p>
-      <p><?= $alat_musik['cara_permainan']; ?></p>
-      <p><?= $alat_musik['harga']; ?></p>
+      <p>Nama Alat : <?= $alat_musik['nama_alat']; ?></p>
+      <p>Merk : <?= $alat_musik['merk']; ?></p>
+      <p>Cara Bermain : <?= $alat_musik['cara_permainan']; ?></p>
+      <p>Harga : Rp.<?= $alat_musik['harga']; ?></p>
     </div>
 
 

@@ -79,7 +79,7 @@ if (isset($_GET['cari'])) {
             <img src="image/<?= $a['gambar']; ?>" style='width: 150px; height: 150px;' class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title"> <?= $a['nama_alat'] ?></h5>
-              <?= $a['merk']; ?>
+              <a href="php/user.php?id=<?= $a['id'];  ?>" class="btn btn-default btn-primary" role="button">Keterangan</a>
             </div>
           </div>
         </div>
