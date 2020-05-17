@@ -50,10 +50,6 @@ if (isset($_GET['cari'])) {
           </form>
         </div>
         <div class="navbar-nav ml-auto">
-          <a class="nav-item btn btn-primary" href="php/resgistrasi.php">
-            Sign Up
-          </a>
-          <a>||</a>
           <a class="nav-item btn btn-primary" href="php/login.php">
             Login
           </a>
