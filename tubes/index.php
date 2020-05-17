@@ -1,92 +1,96 @@
 <?php
-
+// menghubungkan dengan file php lainnya
 require 'php/functions.php';
+
+// melakukan query
 
 if (isset($_GET['cari'])) {
   $keyword = $_GET['keyword'];
-  $alat_musik = query("SELECT * FROM alat_musik WHERE
-			gambar like '%$keyword%'OR
+  $alat_musik = query(
+    "SELECT * FROM alat_musik WHERE
+         gambar like '%$keyword%'OR
 			nama_alat like '%$keyword%'OR
 			merk like '%$keyword%'OR
 			cara_permainan like '%$keyword%'OR
-			harga like '%$keyword%'
-			 ");
+			harga like '%$keyword%' "
+  );
 } else {
   $alat_musik = query("SELECT * FROM alat_musik");
 }
-
 ?>
-<!DOCTYPE html>
+
+
+<!doctype html>
 <html lang="en">
 
 <head>
+  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title> TUBES </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <title>193040029</title>
 </head>
 
-<body style="background-image: url(image/bg1.jpg); background-position: -100px; ">
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+    <div class="container">
+      <a class="navbar-brand" href="#">ALAT MUSIK</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <!-- awal navbar -->
-  <nav class="navbar navbar-default">
-    <form class="navbar-form  navbar-left" action="" method="get">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword" autocomplete="off">
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav mx-auto">
+          <form class="form-inline mr-2" action="">
+            <input class="form-control mr-sm-2" type="search" size="60" placeholder="Search" aria-label="Search" name="keyword">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" name="cari">Cari</button>
+          </form>
+        </div>
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item btn btn-primary" href="php/resgistrasi.php">
+            Sign Up
+          </a>
+          <a>||</a>
+          <a class="nav-item btn btn-primary" href="php/login.php">
+            Login
+          </a>
+        </div>
       </div>
-      <button type="submit" class="btn btn-default" name="cari" id="cari">Submit</button>
-    </form>
-    <div class="container-fluid  btn-primary">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <form class="navbar-form  navbar-right">
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <button type="submit" class="btn btn-default"><a href="php/login.php">Log-in</a></button>
-        </div><!-- /.container-fluid -->
-      </form>
+    </div>
   </nav>
-  <!-- akhir navbar -->
-
-  <!-- isi -->
-  <div class="container" id="container" style="margin-left: 500px;">
-    <div class="con">
-
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Alat Musik</h1>
+      <p class="lead">Alat Musik Paling Populer DiMainkan Oleh Seluruh Orang di Dunia.</p>
+    </div>
+  </div>
+  <div class="container">
+    <h1>ALAT MUSIK</h1>
+    <?php if (empty($alat_musik)) : ?>
+      <h3 class="text-danger">Hasil pencarian tidak ditemukan!</h3>
+    <?php endif; ?>
+    <div class="row">
       <?php foreach ($alat_musik as $a) : ?>
-        <div class="row" align="center">
-          <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="image/<?= $a['gambar']; ?>" style='width: 150px; height: 150px;'>
-              <div class="caption">
-                <h3><?= $a['nama_alat']; ?></h3>
-
-                <p><a href="php/user.php?id=<?= $a['id'];  ?>" class="btn btn-default btn-primary" role="button">Keterangan</a></p>
-              </div>
+        <div class="col-md-3 mb-3">
+          <div class="card">
+            <img src="image/<?= $a['gambar']; ?>" style='width: 150px; height: 150px;' class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"> <?= $a['nama_alat'] ?></h5>
+              <?= $a['merk']; ?>
             </div>
           </div>
         </div>
-      <?php endforeach ?>
+      <?php endforeach; ?>
     </div>
-
-    <!-- akhir isi -->
   </div>
-
-
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
-
-  <script type="text/javascript" src="js/script.js"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 
 </html>
